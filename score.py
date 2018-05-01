@@ -220,17 +220,18 @@ def get_smape_score(input_sol_file, input_prd_file, output_file, req_level):
                 # Perday smape
                 if req_level == "" or req_level == "perday":
                     pd_all = pd.concat([ pd_merged_map[aq] for aq in aq_list ])
-                    _compute_day_smape('perday', pd_all, scoring_function, set_num, predict_name, score_name, html_file, score_file, perday_perfix='all')
+                    _compute_day_smape('perday', pd_all, scoring_function, set_num, predict_name, score_name, score_file, perday_perfix='all')
                 # 0-23, 24-47, 0-47: total, top25 smape
                 if req_level == "" or req_level == "hr":
-                    _compute_smape('hr', pd_merged_map, scoring_function, set_num, predict_name, score_name, html_file, score_file)
+                    _compute_smape('hr', pd_merged_map, scoring_function, set_num, predict_name, score_name, score_file)
                 # City, station: smape X2
                 if req_level == "" or req_level == "loc":
-                    _compute_smape('loc', pd_merged_map, scoring_function, set_num, predict_name, score_name, html_file, score_file)
+                    _compute_smape('loc', pd_merged_map, scoring_function, set_num, predict_name, score_name, score_file)
                 # AQ
                 if req_level == "" or req_level == "aq":
-                    _compute_smape('aq', pd_merged_map, scoring_function, set_num, predict_name, score_name, html_file, score_file)
+                    _compute_smape('aq', pd_merged_map, scoring_function, set_num, predict_name, score_name, score_file)
             except:
+                raise
                 raise Exception('Error in calculation of the specific score of the task')
 
         except Exception as inst:
@@ -242,6 +243,5 @@ def get_smape_score(input_sol_file, input_prd_file, output_file, req_level):
     # End loop for solution_file in solution_names
     score_file.close()
 
-if __name__ == "__name__":
-    get_smape_score()
-    pass
+if __name__ == "__main__":
+    get_smape_score( "./sample_prd.csv" , "./sample_sol.csv", "output.txt", "")

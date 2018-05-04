@@ -9,6 +9,7 @@
 ## generate data.json first
 
   cd static
+
   python gen_plot_json.py
 
 ## run nginx
